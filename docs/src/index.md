@@ -1,3 +1,18 @@
-# MullerPlot.jl
+# MullerPlot.jl Documentation
 
-Documentation for MullerPlot.jl
+```@meta
+CurrentModule = MullerPlot
+```
+
+## Module Index
+
+```@index
+Modules = [MullerPlot]
+Order   = [:constant, :type, :function, :macro]
+```
+## Detailed API
+
+```@autodocs
+Modules = [MullerPlot]
+Order   = [:constant, :type, :function, :macro]
+```

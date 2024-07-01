@@ -27,7 +27,7 @@ Get combined size of all child clones of a variant.
 `n_vid`:          vector of clone sizes indexed by variant id \\
 `vid_child_Vid`:  vector (indexed by variant id) where each element is a vector of that variant's children (given as their variant id's)
 """
-function sizeVariantRec(vid::Integer, n_vid::AbstractArray{<:Integer}, vid_child_Vid::AbstractArray{<:AbstractArray{<:Integer}})
+function sizeVariantRec(vid::Integer, n_vid::AbstractArray{<:Float64,1}, vid_child_Vid::AbstractArray{<:AbstractArray{<:Integer}})
     childSizes = 0
     for child in vid_child_Vid[vid]
         childSizes += sizeVariantRec(child, n_vid, vid_child_Vid)
@@ -117,7 +117,6 @@ function transformVidCoordinate(vidIn::Integer, vid1_vid2)
     return findfirst(vid1_vid2.==vidIn)
 end
 
-# function reduceCloneSpace(vid_child_Vid::AbstractArray{T} where T<:AbstractArray{V} where V<:Integer, visible_vid::AbstractVector{Bool})
 function reduceCloneSpace(vid_child_Vid::AbstractArray{<:AbstractArray{<:Integer}}, visible_vid::AbstractVector{Bool})
     visible_vid[1] = true # wild type must be visible
     nClones2 = sum(visible_vid)

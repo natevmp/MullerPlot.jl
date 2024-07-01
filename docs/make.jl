@@ -4,7 +4,8 @@ using MullerPlot
 makedocs(
     sitename = "MullerPlot.jl Documentation",
     format = Documenter.HTML(),
-    modules = [MullerPlot]
+    modules = [MullerPlot],
+    # doctest = false,
 )
 
 # Documenter can also automatically deploy documentation to gh-pages.
