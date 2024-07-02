@@ -17,7 +17,7 @@ First we load population size and parental relationship data.
 
     n_t_vid = CSV.File("data/dataMullerplot_sizes.csv", header=false) |> Tables.matrix
     parentVid_vid = CSV.File("data/dataMullerplot_parentLineage.csv", header=false) |> Tables.matrix |> vec
-<!-- tBirth_vid = CSV.File("data/dataMullerplot_arrivalTimes.csv", header=false) |> Tables.matrix |> vec -->
+    tBirth_vid = CSV.File("data/dataMullerplot_arrivalTimes.csv", header=false) |> Tables.matrix |> vec
 
 To use the package functionality, the input data has several requirements. `n_t_vid` must be a matrix of clone sizes, where the first dimension is indexed by the time points at which the sizes are measured, and the second by the different clones. Each clone in the system is designated an integer id that coincides with its index in any array indexing over the different clones:
 
@@ -48,7 +48,7 @@ It is also possible to select only a subset of clones for the plot, using a bool
 
 Now we use the `Makie.jl` package to construct the plot.
 
-    _t = range(0,100,length=size(n_t_vid,1)) # set equidistance measurement times
+    _t = range(0,100,length=size(n_t_vid,1)) # set equidistant measurement times
 
     using CairoMakie
 
