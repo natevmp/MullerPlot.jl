@@ -120,7 +120,7 @@ end
 function reduceCloneSpace(vid_child_Vid::AbstractArray{<:AbstractArray{<:Integer}}, visible_vid::AbstractVector{Bool})
     visible_vid[1] = true # wild type must be visible
     nClones2 = sum(visible_vid)
-    _vid = range(1,length(visible_vid))
+    _vid = range(1,length(visible_vid), step=1)
     vid2_child_Vid2 = Vector{Vector{Int}}(undef, nClones2)
     for (vid2, vid_child) in enumerate(vid_child_Vid[visible_vid])
         vid2_child = Int[]
