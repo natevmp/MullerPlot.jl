@@ -79,4 +79,7 @@ for i in 2:size(xL_t_vid,2) # the first index is the wild type
 end
 ylims!(0,1)
 xlims!(0,100)
-display(fig)```
+display(fig)
+```
+
+![example plot](../media/mullerPlotExample.png?raw=true)
