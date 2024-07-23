@@ -4,7 +4,7 @@
 [![](https://img.shields.io/badge/docs-stable-blue.svg)](https://natevmp.github.io/MullerPlot.jl/stable)
 [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://natevmp.github.io/MullerPlot.jl/dev)
 
-This package contains tools for designing a [Muller plot](https://en.wikipedia.org/wiki/Muller_plot), which is a visual representation of a time-varying population in which subclones expand and/or contract, that simultaneously demonstrates the clone's growth curves and their parent-child relationships. The core functionality takes subclone size information and returns 2D coordinate data which can be used in any plotting package.
+This package contains tools for designing a [Muller plot](https://en.wikipedia.org/wiki/Muller_plot). This is a visual representation of a time-varying population in which subclones expand and/or contract, that simultaneously demonstrates the clone's growth curves and their parent-child relationships. The core functionality takes subclone size information and returns 2D coordinate data which can be visualized with any plotting package.
 
 
 
@@ -31,24 +31,23 @@ To use the package functionality, the input data has several requirements. `n_t_
 
 Clone sizes $n_i(t)$ should be specified as a fraction of the total population size and exclude any subclones, so that $\forall j : \sum_i n_i(t_j) = 1$. 
 
-`parentVid_vid` is a vector indexed by the different clone id's, containing the id (/index) of the clone's direct parent.  For example, `parentVid_vid[5]` returns the id/index of the parent of the clone at index 5. All clones that do not have direct parent in the system, or who's direct parent is the wild type, should be given the parent with id 0.
+`parentVid_vid` is a vector indexed by the different clone id's, containing the id (/index) of the clone's direct parent. For example, `parentVid_vid[5]` returns the id/index of the parent of the clone at index 5. A clone who's parent is the wild type takes a parent id 0.
 
-
-Next we create bounds for plotting each clone.
+Next we create bounds for plotting each clone:
 ```julia
 using MullerPlot
 
 xL_t_vid, xU_t_vid = mullerBounds(n_t_vid, parentVid_vid)
 ```
 
-The method `mullerBounds(...)` returns two matrices containing the coordinates of respectively the upper and lower bounds of each clone (newly arising population) in the population. The first dimension of these  matrices indexes the measurement times (typically the x-axis of a Muller plot), and the second the different clones. For example `xL_t_vid[:,5]` is a vector containing the size-axis coordinate (usually the y-axis) of the lower bound of the 5th clone at all timepoints, and `xL_t_vid[5,:]` is a vector containing the size-axis coordinates of all clones at the 5th timepoint.
+The method `mullerBounds(...)` returns two matrices containing the coordinates of respectively the upper and lower bounds of each clone (newly arising population) in the population. The first dimension of these matrices indexes the measurement times (typically the x-axis of a Muller plot), and the second the different clones. For example `xL_t_vid[:,5]` is a vector containing the size-axis coordinate (usually the y-axis) of the lower bound of the 5th clone at all timepoints, and `xL_t_vid[5,:]` is a vector containing the size-axis coordinates of all clones at the 5th timepoint.
 
 It is also possible to select only a subset of clones for the plot, using a boolean vector as third argument. For example, if we wish to only show clones that consist of at least 1% of the population at the final measurement time:
 ```julia
 visible_vid = n_t_vid[end,:] .> 0.01
 xL_t_vid, xU_t_vid = MullerPlot.mullerBounds(n_t_vid, parentVid_vid, visible_vid)
 ```
-Now we use the `Makie.jl` package to construct the plot.
+Here we use `Makie.jl` to construct the plot:
 ```julia
 _t = range(0,100,length=size(n_t_vid,1)) # set equidistant measurement times
 
